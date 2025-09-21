@@ -1,0 +1,31 @@
+.filter-section {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.search-field, .status-filter {
+  flex: 1;
+}
+.ticket-list-accordion {
+  width: 100%;
+}
+.mat-expansion-panel-header {
+  padding: 0 24px;
+}
+.mat-panel-title, .mat-panel-description {
+  flex: 1;
+}
+.mat-panel-description {
+  justify-content: flex-end;
+}
+.ticket-details {
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.detail-button {
+  width: fit-content;
+  align-self: flex-end;
+}

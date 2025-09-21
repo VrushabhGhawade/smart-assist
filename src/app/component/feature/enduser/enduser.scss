@@ -1,0 +1,38 @@
+.mat-drawer-container {
+    height: 100vh;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    --mat-toolbar-container-background-color: #7B3F72;
+    --mat-toolbar-container-text-color: white;
+}
+
+mat-drawer {
+    --mat-sidenav-container-background-color: #7B3F72;
+    --mat-sidenav-container-text-color: white;
+}
+
+.align-baseline {
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+    mat-icon {
+        color: white;
+    }
+    span {
+        color: white;
+    }
+}
+
+.active-link {
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+    font-weight: 500;
+    border-left: 4px solid var(--mat-sys-primary);
+    padding-left: 12px;
+}

@@ -1,0 +1,81 @@
+<div class="dashboard-container">
+  <div class="greeting-section">
+    <h1>Hello, Vrushabh!</h1>
+    <p>Here is your ticket progress report.</p>
+  </div>
+
+  <mat-grid-list cols="4" rowHeight="150px" gutterSize="20px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="progress-card open-card">
+        <mat-card-content>
+          <div class="card-content-wrapper">
+            <mat-icon class="card-icon">error_outline</mat-icon>
+            <div class="card-text">
+              <span class="card-number">{{ ticketMetrics.open }}</span>
+              <span class="card-label">Open Tickets</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="progress-card in-progress-card">
+        <mat-card-content>
+          <div class="card-content-wrapper">
+            <mat-icon class="card-icon">update</mat-icon>
+            <div class="card-text">
+              <span class="card-number">{{ ticketMetrics.inProgress }}</span>
+              <span class="card-label">In Progress</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="progress-card resolved-card">
+        <mat-card-content>
+          <div class="card-content-wrapper">
+            <mat-icon class="card-icon">check_circle_outline</mat-icon>
+            <div class="card-text">
+              <span class="card-number">{{ ticketMetrics.resolved }}</span>
+              <span class="card-label">Resolved</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="progress-card closed-card">
+        <mat-card-content>
+          <div class="card-content-wrapper">
+            <mat-icon class="card-icon">task_alt</mat-icon>
+            <div class="card-text">
+              <span class="card-number">{{ ticketMetrics.closed }}</span>
+              <span class="card-label">Closed</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="4" [rowspan]="2">
+      <mat-card class="dashboard-card recent-activity-card">
+        <mat-card-header>
+          <mat-card-title>Recent Ticket Activity</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let ticket of recentTickets">
+              <mat-icon matListItemIcon>{{ getIconForStatus(ticket.status) }}</mat-icon>
+              <div matListItemTitle>{{ ticket.title }}</div>
+              <div matListItemLine>{{ ticket.status }} - {{ ticket.lastUpdated | date }}</div>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

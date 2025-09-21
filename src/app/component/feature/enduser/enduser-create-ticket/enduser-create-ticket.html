@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Create New Ticket</mat-card-title>
+    <mat-card-subtitle>Fill out the form below to submit a new issue or request.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="create-ticket-form">
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Ticket Title</mat-label>
+        <input matInput placeholder="e.g., Website login not working" required>
+        <mat-icon matSuffix>subject</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Provide a detailed description of the issue..." matAutosizeMinRows="5" matAutosizeMaxRows="10" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Priority</mat-label>
+        <mat-select required>
+          <mat-option value="high">High</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="low">Low</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>priority_high</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field-full-width">
+        <mat-label>Assigned To</mat-label>
+        <mat-select>
+          <mat-option value="team-alpha">Team Alpha</mat-option>
+          <mat-option value="team-beta">Team Beta</mat-option>
+          <mat-option value="unassigned">Unassigned</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-raised-button color="warn" type="reset">Clear</button>
+    <button mat-raised-button color="primary" type="submit">Submit Ticket</button>
+  </mat-card-actions>
+</mat-card>

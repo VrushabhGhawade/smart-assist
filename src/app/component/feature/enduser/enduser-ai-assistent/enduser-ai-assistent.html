@@ -1,0 +1,22 @@
+<mat-card class="ai-assistant-container">
+  <mat-card-header>
+    <mat-card-title>AI Assistant</mat-card-title>
+    <mat-card-subtitle>How can I help you today?</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="chat-history-container">
+    <div *ngFor="let message of messages" [ngClass]="{'user-message': message.sender === 'user', 'ai-message': message.sender === 'ai'}" class="message-bubble">
+      <p>{{ message.text }}</p>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="input-actions">
+    <mat-form-field appearance="outline" class="chat-input-field">
+      <mat-label>Type your message...</mat-label>
+      <input matInput [(ngModel)]="userInput" (keyup.enter)="sendMessage()">
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="sendMessage()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
