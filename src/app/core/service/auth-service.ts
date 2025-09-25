@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
 
@@ -6,15 +6,23 @@ import { Observable, of, delay } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  
-   constructor(private http: HttpClient) {}
+  baseUrl = 'https://nitoplusapimanagement.azure-api.net/AF601OnlineSuppportSystemDev';
 
-  login(username: string, password: string): Observable<{ success: boolean }> {
-    // Replace with your real API call:
-    // return this.http.post<{ success: boolean }>('/api/login', { username, password });
+  constructor(private http: HttpClient) { }
 
-    // Demo: simulate API call with delay
-    console.log('API CAll');
-    return of({ success: username === 'enduser' && password === '123' }).pipe(delay(2000));
+  login(username: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({
+      EntityController: 1,
+      EmailId: username,
+      Password: password
+    });
+
+    return this.http.get<any>(
+      `${this.baseUrl}/user/authenticate`,
+      { headers }
+    );
+  }
+  validateToken(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/user/validate`);
   }
 }

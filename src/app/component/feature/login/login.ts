@@ -22,12 +22,12 @@ import { Header } from "../header/header";
     MatIconModule,
     CommonModule,
     Header
-],
+  ],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
 export class Login implements OnDestroy {
- username = '';
+  username = '';
   password = '';
 
 
@@ -48,8 +48,18 @@ export class Login implements OnDestroy {
         exhaustMap(() =>
           this.authService.login(this.username, this.password).pipe(
             tap((result) => {
-              if (result?.success) {
+              if (result) {
+                localStorage.setItem('userToken', result.userToken);
+                localStorage.setItem('correlationId', result.correlationId);
+                this.authService.validateToken().subscribe(x=>{
+      
+                  if(x.userRole ==20){
+                    localStorage.setItem('userData', JSON.stringify(x));  
                 this.router.navigate(['/enduser']);
+                  }else{
+                    alert('You are not authorized to access this application');
+                  }
+                })
               } else {
                 alert('Invalid credentials');
               }
