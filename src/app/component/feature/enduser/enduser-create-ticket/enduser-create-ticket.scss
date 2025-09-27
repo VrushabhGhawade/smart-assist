@@ -1,14 +1,15 @@
-.create-ticket-form {
+.ticket-form-card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.ticket-form {
   display: flex;
   flex-direction: column;
 }
 
-.form-field-full-width {
+mat-form-field {
   width: 100%;
   margin-bottom: 15px;
-}
-
-mat-card {
-  max-width: 600px;
-  margin: 20px auto;
 }

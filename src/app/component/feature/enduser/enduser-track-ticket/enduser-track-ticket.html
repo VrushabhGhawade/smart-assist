@@ -1,1 +1,53 @@
-<p>enduser-track-ticket works!</p>
+<div class="track-ticket-container">
+  <mat-card class="search-card">
+    <mat-card-header>
+      <mat-card-title>Track Your Ticket</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width-input">
+        <mat-label>Ticket ID</mat-label>
+        <input matInput type="text" [(ngModel)]="ticketId" placeholder="Enter Ticket ID" required>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" (click)="trackTicket()" [disabled]="!ticketId">
+        Track Ticket
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card *ngIf="isLoading" class="loading-card">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </mat-card>
+
+  <mat-card *ngIf="ticket && !isLoading" class="ticket-details-card">
+    <mat-card-header>
+      <mat-card-title class="ticket-title">Ticket #{{ ticket.id }}</mat-card-title>
+      <mat-card-subtitle [ngClass]="getTicketStatusClass(ticket.status)">{{ ticket.status | titlecase }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <strong>Subject:</strong> {{ ticket.subject }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">
+          <strong>Created On:</strong> {{ ticket.createdDate | date }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">
+          <strong>Last Updated:</strong> {{ ticket.lastUpdatedDate | date }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">
+          <strong>Description:</strong> {{ ticket.description }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="!ticket && !isLoading && isSearched" class="no-result-message">
+    <p>No ticket found with ID: {{ lastSearchedId }}. Please check the ID and try again.</p>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+.track-ticket-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 64px); // Adjust based on your header height
+}
+
+.search-card, .ticket-details-card, .loading-card {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.search-card {
+  text-align: center;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.ticket-details-card .mat-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ticket-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.mat-list-item strong {
+  min-width: 120px;
+  display: inline-block;
+  color: #555;
+}
+
+.status-open {
+  color: #1a73e8;
+}
+.status-in-progress {
+  color: #ffa726;
+}
+.status-resolved {
+  color: #4caf50;
+}
+.status-closed {
+  color: #757575;
+}
+
+.no-result-message {
+  color: #e53935;
+  text-align: center;
+  font-weight: bold;
+}
+
+.loading-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+}
