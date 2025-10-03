@@ -27,7 +27,7 @@ export const routes: Routes = [
             { path: 'track-ticket', component: EnduserTrackTicket },
             { path: 'ai-assistent', component: EnduserAiAssistent, canActivate: [authGuard] },
             { path: 'live-chat', component: LiveChat, canActivate: [authGuard] },
-            { path: '', redirectTo: 'home-page', pathMatch: 'full', canActivate: [authGuard] }
+            { path: '', redirectTo: 'home-page', pathMatch: 'full'}
         ]
     },
     { path: '**', component: PageNotFound }

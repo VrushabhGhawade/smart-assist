@@ -1,16 +1,22 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const snackBar = inject(MatSnackBar); // inject service in functional interceptor
+  const snackBar = inject(MatSnackBar); 
+  const router=inject(Router)
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      const message =
-        error.error?.message || `Error ${error.status}: ${error.error}`;
-
+      let message = ''
+      if (error.status === 401) {
+        message = 'You are not authorized. Please login again.';
+        localStorage.clear();
+      } else {
+        message = error.error?.message || `Error ${error.status}: ${error.error}`;
+      }
       // Show error snackbar
       snackBar.open(message, 'Close', {
         duration: 5000,
