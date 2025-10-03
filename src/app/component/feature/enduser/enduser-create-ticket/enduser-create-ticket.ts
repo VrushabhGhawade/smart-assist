@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { PlatformService } from '../../../../core/service/platform-service';
 import { CreateTicket } from '../model/create-ticket';
 import { MatOptionModule } from '@angular/material/core';
+import { LocalStorageKeys } from '../../../../core/constant/local-session-enum';
 
 @Component({
   selector: 'smart-assist-enduser-create-ticket',
@@ -42,7 +43,7 @@ export class EnduserCreateTicket implements OnInit {
     });
   }
   submitCreateTicketForm() {
-    const userData = localStorage.getItem('userData');
+    const userData = localStorage.getItem(LocalStorageKeys.LOCAL_USER_DATA);
     const request: CreateTicket = {
       UserId: userData ? JSON.parse(userData).userId : undefined,
       Title: this.ticketForm.get('title')?.value,

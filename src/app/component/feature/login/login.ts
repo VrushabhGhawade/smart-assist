@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Subject, exhaustMap, tap, takeUntil } from 'rxjs';
 import { AuthService } from '../../../core/service/auth-service';
 import { Header } from "../header/header";
+import { LocalStorageKeys } from '../../../core/constant/local-session-enum';
 
 @Component({
   selector: 'smart-assist-login',
@@ -49,8 +50,8 @@ export class Login implements OnDestroy {
           this.authService.login(this.username, this.password).pipe(
             tap((result) => {
               if (result) {
-                localStorage.setItem('userToken', result.userToken);
-                localStorage.setItem('correlationId', result.correlationId);
+                localStorage.setItem(LocalStorageKeys.LOCAL_USER_TOKEN, result.userToken);
+                localStorage.setItem(LocalStorageKeys.lOCAL_CORRELATION_ID, result.correlationId);
                 this.authService.validateToken().subscribe(x=>{
       
                   if(x.userRole ==20){
