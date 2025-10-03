@@ -6,7 +6,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(PersistentAuthService);
   const router = inject(Router);
 
-  if (!authService.userToken?.userToken || !authService.userToken.correlationId) {
+  if (authService.userToken !=null) {
     return true;
   } else {
     localStorage.clear();

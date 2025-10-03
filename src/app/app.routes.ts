@@ -19,13 +19,15 @@ export const routes: Routes = [
         component: Enduser, canActivate: [authGuard],
         children: [
             { path: 'home-page', component: EnduserHomePage },
-            { path: 'create-ticket', component: EnduserCreateTicket ,
-                 canDeactivate: [canComponentDeactivateGuard]},
-            { path: 'my-tickets', component: EnduserMyTickets },
+            {
+                path: 'create-ticket', component: EnduserCreateTicket,
+                canDeactivate: [canComponentDeactivateGuard]
+            },
+            { path: 'my-tickets', component: EnduserMyTickets, canActivate: [authGuard] },
             { path: 'track-ticket', component: EnduserTrackTicket },
-            { path: 'ai-assistent', component: EnduserAiAssistent },
-            { path: 'live-chat', component: LiveChat },
-            { path: '', redirectTo: 'home-page', pathMatch: 'full' }
+            { path: 'ai-assistent', component: EnduserAiAssistent, canActivate: [authGuard] },
+            { path: 'live-chat', component: LiveChat, canActivate: [authGuard] },
+            { path: '', redirectTo: 'home-page', pathMatch: 'full', canActivate: [authGuard] }
         ]
     },
     { path: '**', component: PageNotFound }
