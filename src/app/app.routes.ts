@@ -8,16 +8,19 @@ import { EnduserAiAssistent } from './component/feature/enduser/enduser-ai-assis
 import { LiveChat } from './component/feature/enduser/live-chat/live-chat';
 import { PageNotFound } from './component/feature/page-not-found/page-not-found';
 import { Login } from './component/feature/login/login';
+import { canComponentDeactivateGuard } from './Guard/can-component-deactivate-guard';
+import { authGuard } from './Guard/auth-guard';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     {
         path: 'enduser',
-        component: Enduser,
+        component: Enduser, canActivate: [authGuard],
         children: [
             { path: 'home-page', component: EnduserHomePage },
-            { path: 'create-ticket', component: EnduserCreateTicket },
+            { path: 'create-ticket', component: EnduserCreateTicket ,
+                 canDeactivate: [canComponentDeactivateGuard]},
             { path: 'my-tickets', component: EnduserMyTickets },
             { path: 'track-ticket', component: EnduserTrackTicket },
             { path: 'ai-assistent', component: EnduserAiAssistent },

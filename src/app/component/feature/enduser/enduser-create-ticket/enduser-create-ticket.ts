@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { PlatformService } from '../../../../core/service/platform-service';
-import { CreateTicket } from '../model/create-ticket';
+import { CreateTicket, Priority, TicketStatus } from '../model/create-ticket';
 import { MatOptionModule } from '@angular/material/core';
 import { LocalStorageKeys } from '../../../../core/constant/local-session-enum';
 
@@ -32,14 +32,24 @@ import { LocalStorageKeys } from '../../../../core/constant/local-session-enum';
   styleUrl: './enduser-create-ticket.scss'
 })
 export class EnduserCreateTicket implements OnInit {
+  isDirty: boolean = false;
   ticketForm!: FormGroup;
+  Priority = Priority; // reference enum in template
+
+  priorities = [
+    { value: Priority.Low, label: 'Low' },
+    { value: Priority.Medium, label: 'Medium' },
+    { value: Priority.High, label: 'High' }
+  ];
   constructor(private platformService: PlatformService, private fb: FormBuilder) { }
   ngOnInit(): void {
     this.ticketForm = this.fb.group({
       title: ['', Validators.required],
-      category: ['', Validators.required],
       description: ['', Validators.required],
       priority: [1] // Optional field with a default value
+    });
+    this.ticketForm.valueChanges.subscribe(() => {
+      this.isDirty = true;
     });
   }
   submitCreateTicketForm() {
@@ -48,15 +58,12 @@ export class EnduserCreateTicket implements OnInit {
       UserId: userData ? JSON.parse(userData).userId : undefined,
       Title: this.ticketForm.get('title')?.value,
       Description: this.ticketForm.get('description')?.value,
-      Status: 1,
+      Status: TicketStatus.Open,
       Priority: this.ticketForm.get('priority')?.value,
-      CreatedBy: userData ? JSON.parse(userData).userName : undefined,
-      AssignedToId: '5c2c5b38-1410-4375-be38-3a76c1b76768',
-      AssignedToName: 'se@nitoplus.com',
       Attachment: null
     };
     this.platformService.createTicket(request).subscribe(response => {
-      console.log('Ticket created successfully:', response);
+      this.isDirty = false;
     }, error => {
       console.error('Error creating ticket:', error);
     });

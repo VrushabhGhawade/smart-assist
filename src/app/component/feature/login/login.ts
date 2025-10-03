@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, NgZone, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,6 +11,8 @@ import { Subject, exhaustMap, tap, takeUntil } from 'rxjs';
 import { AuthService } from '../../../core/service/auth-service';
 import { Header } from "../header/header";
 import { LocalStorageKeys } from '../../../core/constant/local-session-enum';
+import { PersistentAuthService } from '../../../core/service/persistent-auth';
+import { UserRole } from '../../../core/constant/auth-enum';
 
 @Component({
   selector: 'smart-assist-login',
@@ -42,7 +44,10 @@ export class Login implements OnDestroy {
   private loginClick$ = new Subject<void>();
   private destroy$ = new Subject<void>();
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router,
+    private authService: AuthService,
+    private ngZone: NgZone,
+    private persistentAuthService: PersistentAuthService) {
     // When loginClick$ emits, run the login flow
     this.loginClick$
       .pipe(
@@ -50,14 +55,15 @@ export class Login implements OnDestroy {
           this.authService.login(this.username, this.password).pipe(
             tap((result) => {
               if (result) {
-                localStorage.setItem(LocalStorageKeys.LOCAL_USER_TOKEN, result.userToken);
-                localStorage.setItem(LocalStorageKeys.lOCAL_CORRELATION_ID, result.correlationId);
-                this.authService.validateToken().subscribe(x=>{
-      
-                  if(x.userRole ==20){
-                    localStorage.setItem('userData', JSON.stringify(x));  
-                this.router.navigate(['/enduser']);
-                  }else{
+                this.persistentAuthService.userToken = result;
+                this.authService.validateToken().subscribe(x => {
+
+                  if (x.userRole == UserRole.Student) {
+                    this.persistentAuthService.userDetails = x;
+                    this.ngZone.run(() => {
+                      this.router.navigate(['/enduser']);
+                    });
+                  } else {
                     alert('You are not authorized to access this application');
                   }
                 })

@@ -13,31 +13,22 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category">
-          <mat-option value="bug">Bug Report</mat-option>
-          <mat-option value="feature">Feature Request</mat-option>
-          <mat-option value="support">General Support</mat-option>
-        </mat-select>
-        <mat-icon matSuffix>category</mat-icon>
-        <mat-error *ngIf="ticketForm.get('category')?.hasError('required')">Category is required.</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
-        <textarea matInput placeholder="Provide a detailed description of your issue or request." rows="5" formControlName="description"></textarea>
+        <textarea matInput placeholder="Provide a detailed description of your issue or request." rows="5"
+          formControlName="description"></textarea>
         <mat-error *ngIf="ticketForm.get('description')?.hasError('required')">Description is required.</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Priority</mat-label>
         <mat-select formControlName="priority">
-          <mat-option value=1>Low</mat-option>
-          <mat-option value=2>Medium</mat-option>
-          <mat-option value=3>High</mat-option>
+          <mat-option *ngFor="let p of priorities" [value]="p.value">
+            {{ p.label }}
+          </mat-option>
         </mat-select>
         <mat-icon matSuffix>priority_high</mat-icon>
       </mat-form-field>
+
 
       <mat-card-actions align="end">
         <button mat-raised-button color="primary" type="submit" [disabled]="ticketForm.invalid">Submit Ticket</button>

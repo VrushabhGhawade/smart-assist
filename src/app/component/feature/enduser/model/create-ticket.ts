@@ -16,8 +16,8 @@ export class CreateTicket {
     Description: string | undefined;
     Status: TicketStatus | undefined;
     Priority: Priority | undefined;
-    CreatedBy: string | undefined;
-    AssignedToId: string | undefined;
-    AssignedToName: string | undefined;
+    // CreatedBy: string | undefined;
+    // AssignedToId: string | undefined;
+    // AssignedToName: string | undefined;
     Attachment: any | null;
 }
