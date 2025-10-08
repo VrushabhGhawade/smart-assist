@@ -8,6 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { PlatformService } from '../../../../core/service/platform-service';
+import { PersistentAuthService } from '../../../../core/service/persistent-auth';
+import { Ticket, TicketStatus } from '../model/create-ticket';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'smart-assist-enduser-my-tickets',
@@ -26,9 +30,51 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './enduser-my-tickets.scss'
 })
 export class EnduserMyTickets {
-  myTickets = [
-    { id: 'TKT-001', title: 'Website navigation issue', status: 'Open', description: 'The main menu is not showing correctly on mobile devices.', assignedTo: 'You', createdDate: new Date('2025-09-10') },
-    { id: 'TKT-004', title: 'Login button unresponsive', status: 'In Progress', description: 'The login button is greyed out for new users.', assignedTo: 'You', createdDate: new Date('2025-09-05') },
-    { id: 'TKT-007', title: 'Dashboard statistics error', status: 'Open', description: 'The user statistics on the dashboard are showing incorrect values.', assignedTo: 'You', createdDate: new Date('2025-09-12') },
-  ];
+  myTickets: Ticket[] | undefined;
+  ticketStatus = TicketStatus;
+  filteredTickets: Ticket[] = [];
+  selectedStatus: TicketStatus | null = null;
+  searchText: string = '';
+
+  constructor(private platformService: PlatformService,
+    private persistentAuthService: PersistentAuthService,
+    private router: Router
+  ) { }
+  ngOnInit(): void {
+    this.myTicket();
+  }
+
+  myTicket() {
+    const userId = this.persistentAuthService.userDetails?.userId;
+    if (userId) {
+      this.platformService.getAllTicketTicketByUserId(userId).subscribe(response => {
+        this.myTickets = response;
+        this.filteredTickets = this.myTickets;
+      }, error => {
+        console.error('Error creating ticket:', error);
+      });
+    }
+  }
+  viewDetails(ticketId: string) {
+    this.router.navigate(['/enduser/track-ticket'], { queryParams: { id: ticketId } });
+  }
+  onStatusChange(status: TicketStatus) {
+    if (this.myTickets) {
+      if (status === null) {
+        this.filteredTickets = [...this.myTickets];
+      } else {
+        this.filteredTickets = this.myTickets.filter(ticket => ticket.status === status);
+      }
+    }
+  }
+  onSearchChange() {
+    const search = this.searchText.toLowerCase();
+    if (this.myTickets) {
+      this.filteredTickets = this.myTickets.filter(ticket =>
+        ticket.ticketId.toLowerCase().includes(search) ||
+        ticket.title.toLowerCase().includes(search) ||
+        TicketStatus[ticket.status].toLowerCase().includes(search)
+      );
+    }
+  }
 }

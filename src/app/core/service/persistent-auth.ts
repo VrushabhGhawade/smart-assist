@@ -8,7 +8,7 @@ import { DataEncryptDecryptService } from './data-encrypt-decrypt-service';
   providedIn: 'root'
 })
 export class PersistentAuthService {
-  constructor(private router: Router,private dataEncryptDecryptService:DataEncryptDecryptService) {
+  constructor(private router: Router, private dataEncryptDecryptService: DataEncryptDecryptService) {
 
   }
   set userToken(response: AuthResponse | null) {
@@ -23,13 +23,34 @@ export class PersistentAuthService {
   }
 
   get userDetails(): User | null {
-    const data = localStorage.getItem(LocalStorageKeys.LOCAL_USER_DATA);
-    return data ? JSON.parse(data) as User : null;
+    const storedData = localStorage.getItem(LocalStorageKeys.LOCAL_USER_DATA);
+
+    if (storedData) {
+      const data = JSON.parse(storedData) as User;
+
+      const userData: User = {
+        entityControllerId: data.entityControllerId,
+        email: this.dataEncryptDecryptService.decrypt(data.email),
+        niTOPLUSRole: data.niTOPLUSRole,
+        userRole: data.userRole,
+        firstName: this.dataEncryptDecryptService.decrypt(data.firstName),
+        lastName: this.dataEncryptDecryptService.decrypt(data.lastName),
+        countryCode: data.countryCode,
+        phoneNumber: this.dataEncryptDecryptService.decrypt(data.phoneNumber),
+        photo: this.dataEncryptDecryptService.decrypt(data.photo),
+        userId: this.dataEncryptDecryptService.decrypt(data.userId)
+      };
+
+      return userData;
+    }
+
+    return null;
   }
+
 
   set userDetails(response: User | null) {
     if (response) {
-      const userData:User={
+      const userData: User = {
         entityControllerId: response.entityControllerId,
         email: this.dataEncryptDecryptService.encrypt(response.email),
         niTOPLUSRole: response.niTOPLUSRole,

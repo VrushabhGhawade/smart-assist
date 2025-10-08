@@ -21,3 +21,19 @@ export class CreateTicket {
     // AssignedToName: string | undefined;
     Attachment: any | null;
 }
+export class Ticket {
+  ticketId!: string;
+  userId!: string;
+  title!: string;
+  description!: string;
+  status!: number;
+  priority!: number;
+  createdBy!: string;
+  assignedToId?: string | null;
+  assignedToName?: string | null;
+  age!: number;
+  attachment?: string | null;
+  feedbackRating?: number | null;
+  feedback?: string | null;
+}
+

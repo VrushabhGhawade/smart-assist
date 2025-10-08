@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { Subject, exhaustMap, tap, takeUntil } from 'rxjs';
 import { AuthService } from '../../../core/service/auth-service';
 import { Header } from "../header/header";
-import { LocalStorageKeys } from '../../../core/constant/local-session-enum';
 import { PersistentAuthService } from '../../../core/service/persistent-auth';
 import { UserRole } from '../../../core/constant/auth-enum';
 

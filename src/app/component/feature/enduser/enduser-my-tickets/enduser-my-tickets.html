@@ -7,34 +7,41 @@
     <div class="filter-section">
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>Search My Tickets</mat-label>
-        <input matInput placeholder="Search by ID, title, or status">
+        <input matInput placeholder="Search by ID, title, or status" [(ngModel)]="searchText"
+          (ngModelChange)="onSearchChange()">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
+
       <mat-form-field appearance="outline" class="status-filter">
         <mat-label>Filter by Status</mat-label>
-        <mat-select>
-          <mat-option value="all">All</mat-option>
-          <mat-option value="open">Open</mat-option>
-          <mat-option value="in-progress">In Progress</mat-option>
-          <mat-option value="closed">Closed</mat-option>
+        <mat-select [(value)]="selectedStatus" (selectionChange)="onStatusChange($event.value)">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option [value]="ticketStatus.Open">Open</mat-option>
+          <mat-option [value]="ticketStatus.Closed">Closed</mat-option>
+          <mat-option [value]="ticketStatus.Resolved">Resolved</mat-option>
         </mat-select>
       </mat-form-field>
+
+
     </div>
     <mat-accordion class="ticket-list-accordion">
-      <mat-expansion-panel *ngFor="let ticket of myTickets" hideToggle>
+      <mat-expansion-panel *ngFor="let ticket of filteredTickets" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <strong>ID:</strong> {{ ticket.id }}
+            <strong>ID:</strong> {{ ticket.ticketId }}
           </mat-panel-title>
           <mat-panel-description>
-            <strong>Title:</strong> {{ ticket.title }} | <strong>Status:</strong> {{ ticket.status }}
+            <strong>Title:</strong> {{ ticket.title }} | <strong>Status:</strong> {{ticketStatus[ticket.status]}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div class="ticket-details">
           <p><strong>Description:</strong> {{ ticket.description }}</p>
-          <p><strong>Assigned To:</strong> {{ ticket.assignedTo }}</p>
-          <p><strong>Created On:</strong> {{ ticket.createdDate | date }}</p>
-          <button mat-flat-button color="primary" class="detail-button">View Details</button>
+          <p><strong>Assigned To:</strong> {{ ticket.assignedToName || 'Not Assigned' }}</p>
+          <p><strong>Age:</strong> {{ ticket.age }} days</p>
+          <button mat-flat-button color="primary" class="detail-button" (click)="viewDetails(ticket.ticketId)">
+            View Details
+          </button>
+
         </div>
       </mat-expansion-panel>
     </mat-accordion>

@@ -9,6 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ActivatedRoute } from '@angular/router';
+import { PlatformService } from '../../../../core/service/platform-service';
+import { PersistentAuthService } from '../../../../core/service/persistent-auth';
 
 interface Ticket {
   id: number;
@@ -21,8 +24,8 @@ interface Ticket {
 @Component({
   selector: 'smart-assist-enduser-track-ticket',
   imports: [
-     FormsModule,
-     CommonModule,
+    FormsModule,
+    CommonModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -36,13 +39,24 @@ interface Ticket {
   styleUrl: './enduser-track-ticket.scss'
 })
 export class EnduserTrackTicket {
- ticketId: string = '';
+  ticketId: string = '';
   lastSearchedId: string = '';
   ticket: Ticket | null = null;
   isLoading: boolean = false;
   isSearched: boolean = false;
 
-  constructor() { }
+
+  constructor(private route: ActivatedRoute,
+    private platformService: PlatformService,
+    private persistentAuthService: PersistentAuthService
+  ) { }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.ticketId = params['id'];
+      this.trackTicket();
+    });
+  }
 
   trackTicket(): void {
     if (!this.ticketId) {
@@ -53,25 +67,16 @@ export class EnduserTrackTicket {
     this.isSearched = true;
     this.lastSearchedId = this.ticketId;
     this.ticket = null; // Clear previous results
+    const userId = this.persistentAuthService.userDetails?.userId;
+    if (userId && this.ticketId) {
+      this.platformService.trackTicket(this.ticketId, userId).subscribe(response => {
+        this.isLoading = false;
 
-    // Simulate an API call with a delay
-    setTimeout(() => {
-      // Dummy data for demonstration. In a real app, this would be an HTTP call.
-      if (this.ticketId === '12345') {
-        this.ticket = {
-          id: 12345,
-          subject: 'Issue with network connection',
-          status: 'in-progress',
-          createdDate: new Date('2025-09-20'),
-          lastUpdatedDate: new Date('2025-09-27'),
-          description: 'Experiencing intermittent network drops on my laptop. This is affecting my ability to work on critical tasks.',
-        };
-      } else {
-        this.ticket = null; // No ticket found
-      }
+      }, error => {
+        this.isLoading = false;
 
-      this.isLoading = false;
-    }, 1500);
+      });
+    }
   }
 
   getTicketStatusClass(status: string): string {
@@ -88,4 +93,5 @@ export class EnduserTrackTicket {
         return '';
     }
   }
+
 }

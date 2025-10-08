@@ -12,6 +12,7 @@ import { PlatformService } from '../../../../core/service/platform-service';
 import { CreateTicket, Priority, TicketStatus } from '../model/create-ticket';
 import { MatOptionModule } from '@angular/material/core';
 import { LocalStorageKeys } from '../../../../core/constant/local-session-enum';
+import { PersistentAuthService } from '../../../../core/service/persistent-auth';
 
 @Component({
   selector: 'smart-assist-enduser-create-ticket',
@@ -41,7 +42,9 @@ export class EnduserCreateTicket implements OnInit {
     { value: Priority.Medium, label: 'Medium' },
     { value: Priority.High, label: 'High' }
   ];
-  constructor(private platformService: PlatformService, private fb: FormBuilder) { }
+  constructor(private platformService: PlatformService,
+     private fb: FormBuilder,
+    private persistentAuthService: PersistentAuthService) { }
   ngOnInit(): void {
     this.ticketForm = this.fb.group({
       title: ['', Validators.required],
@@ -53,9 +56,9 @@ export class EnduserCreateTicket implements OnInit {
     });
   }
   submitCreateTicketForm() {
-    const userData = localStorage.getItem(LocalStorageKeys.LOCAL_USER_DATA);
+    const userData = this.persistentAuthService.userDetails;
     const request: CreateTicket = {
-      UserId: userData ? JSON.parse(userData).userId : undefined,
+      UserId: userData ? userData.userId : undefined,
       Title: this.ticketForm.get('title')?.value,
       Description: this.ticketForm.get('description')?.value,
       Status: TicketStatus.Open,

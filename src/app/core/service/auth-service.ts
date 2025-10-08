@@ -7,7 +7,8 @@ import { AuthResponse, User } from '../model/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = 'https://nitoplusapimanagement.azure-api.net/AF601OnlineSuppportSystemDev';
+  // baseUrl = 'https://nitoplusapimanagement.azure-api.net/AF601OnlineSuppportSystemDev';
+  baseUrl = 'https://af601onlinesuppportsystemdev.azurewebsites.net/api';
 
   constructor(private http: HttpClient) { }
 
