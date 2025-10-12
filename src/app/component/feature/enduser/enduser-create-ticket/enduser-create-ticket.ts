@@ -11,7 +11,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { PlatformService } from '../../../../core/service/platform-service';
 import { CreateTicket, Priority, TicketStatus } from '../model/create-ticket';
 import { MatOptionModule } from '@angular/material/core';
-import { LocalStorageKeys } from '../../../../core/constant/local-session-enum';
 import { PersistentAuthService } from '../../../../core/service/persistent-auth';
 
 @Component({
