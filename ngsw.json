@@ -1,0 +1,79 @@
+{
+  "configVersion": 1,
+  "timestamp": 1761382038245,
+  "index": "https://VrushabhGhawade.github.io/smart-assist/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://VrushabhGhawade.github.io/smart-assist/favicon.ico",
+        "https://VrushabhGhawade.github.io/smart-assist/index.html",
+        "https://VrushabhGhawade.github.io/smart-assist/main-FDKIUYXG.js",
+        "https://VrushabhGhawade.github.io/smart-assist/manifest.webmanifest",
+        "https://VrushabhGhawade.github.io/smart-assist/polyfills-5CFQRCPP.js",
+        "https://VrushabhGhawade.github.io/smart-assist/styles-MC7DNLBQ.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-128x128.png",
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-144x144.png",
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-152x152.png",
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-192x192.png",
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-384x384.png",
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-512x512.png",
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-72x72.png",
+        "https://VrushabhGhawade.github.io/smart-assist/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://VrushabhGhawade.github.io/smart-assist/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "https://VrushabhGhawade.github.io/smart-assist/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "https://VrushabhGhawade.github.io/smart-assist/index.html": "b2d65f3271e7c981033802d97447de8d4136d2e7",
+    "https://VrushabhGhawade.github.io/smart-assist/main-FDKIUYXG.js": "ac4b6180a91c917eb3ffd14d2dad85219a074330",
+    "https://VrushabhGhawade.github.io/smart-assist/manifest.webmanifest": "80e3029c6c0af1bd1f5da9551fa7f1ae8e32fb2a",
+    "https://VrushabhGhawade.github.io/smart-assist/polyfills-5CFQRCPP.js": "f2241e9a25858f895ce299d15f6f22e849e2fd72",
+    "https://VrushabhGhawade.github.io/smart-assist/styles-MC7DNLBQ.css": "213a422ae1c44e84d4e34fc27e6eba90026255d0"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
