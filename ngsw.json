@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1761382038245,
+  "timestamp": 1761384238406,
   "index": "https://VrushabhGhawade.github.io/smart-assist/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://VrushabhGhawade.github.io/smart-assist/favicon.ico",
         "https://VrushabhGhawade.github.io/smart-assist/index.html",
-        "https://VrushabhGhawade.github.io/smart-assist/main-FDKIUYXG.js",
+        "https://VrushabhGhawade.github.io/smart-assist/main-BMKICMRA.js",
         "https://VrushabhGhawade.github.io/smart-assist/manifest.webmanifest",
         "https://VrushabhGhawade.github.io/smart-assist/polyfills-5CFQRCPP.js",
         "https://VrushabhGhawade.github.io/smart-assist/styles-MC7DNLBQ.css"
@@ -51,8 +51,8 @@
     "https://VrushabhGhawade.github.io/smart-assist/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "https://VrushabhGhawade.github.io/smart-assist/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "https://VrushabhGhawade.github.io/smart-assist/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "https://VrushabhGhawade.github.io/smart-assist/index.html": "b2d65f3271e7c981033802d97447de8d4136d2e7",
-    "https://VrushabhGhawade.github.io/smart-assist/main-FDKIUYXG.js": "ac4b6180a91c917eb3ffd14d2dad85219a074330",
+    "https://VrushabhGhawade.github.io/smart-assist/index.html": "99a0285e45557d79dea58fb441636c15a24eee99",
+    "https://VrushabhGhawade.github.io/smart-assist/main-BMKICMRA.js": "cd7ead83bafb004049bb7b5e4bb6b8977a249baf",
     "https://VrushabhGhawade.github.io/smart-assist/manifest.webmanifest": "80e3029c6c0af1bd1f5da9551fa7f1ae8e32fb2a",
     "https://VrushabhGhawade.github.io/smart-assist/polyfills-5CFQRCPP.js": "f2241e9a25858f895ce299d15f6f22e849e2fd72",
     "https://VrushabhGhawade.github.io/smart-assist/styles-MC7DNLBQ.css": "213a422ae1c44e84d4e34fc27e6eba90026255d0"
