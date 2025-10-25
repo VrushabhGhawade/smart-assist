@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { SocketService } from '../../../../core/service/socket-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'smart-assist-live-chat',
@@ -25,28 +27,37 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class LiveChat {
  @ViewChild('chatHistoryContainer', { static: false }) private chatHistoryContainer!: ElementRef;
+  private messageSubscription!: Subscription;
 
   currentMessage: string = '';
   messages: { text: string, sender: 'user' | 'other' }[] = [
     { text: 'Hello, how can I help you today?', sender: 'other' }
   ];
 
-  constructor() { }
+  constructor(private socketService: SocketService) { }
 
   ngOnInit(): void {
-    // Scroll to the bottom on initial load
+       this.socketService.connect();
+     this.messageSubscription = this.socketService.listen('receiveMessage')
+      .subscribe((msg: { text: string, sender: 'user' | 'other' }) => {
+        this.messages.push(msg);
+      });
     this.scrollToBottom();
   }
+ 
+
 
   sendMessage(): void {
     if (this.currentMessage.trim()) {
       this.messages.push({ text: this.currentMessage, sender: 'user' });
+      this.socketService.sendMessage('sendMessage', { text: this.currentMessage, sender: 'user' });
+
       this.currentMessage = '';
       this.scrollToBottom();
 
       // Simulate a response from the "other" user
       setTimeout(() => {
-        this.messages.push({ text: 'Thank you for your message. An agent will be with you shortly.', sender: 'other' });
+        // this.messages.push({ text: 'Thank you for your message. An agent will be with you shortly.', sender: 'other' });
         this.scrollToBottom();
       }, 1000);
     }
@@ -58,5 +69,8 @@ export class LiveChat {
         this.chatHistoryContainer.nativeElement.scrollTop = this.chatHistoryContainer.nativeElement.scrollHeight;
       }, 0);
     } catch(err) { }
+  }
+  ngOnDestroy(): void {
+    this.socketService.disconnect();
   }
 }
